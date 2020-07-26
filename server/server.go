@@ -12,14 +12,14 @@ type timeHandler struct{}
 
 type timeResponse struct {
 	Time    string `json:"time"`
-	Version string `json:"version"`
+	Version int    `json:"version"`
 }
 
 func (h *timeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	t := time.Now().Format(time.RFC3339)
 	resp := &timeResponse{
 		Time:    t,
-		Version: "v1",
+		Version: 1,
 	}
 
 	err := json.NewEncoder(w).Encode(resp)
