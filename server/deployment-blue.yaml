@@ -1,0 +1,24 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: time-server-v1 
+spec:
+  replicas: 1
+  template:
+    metadata:
+       labels:
+         app: time-server-v1
+    spec:
+      containers:
+        - name: app
+          image: gcr.io/snowball-284203/time-server:v1
+          livenessProbe:
+             httpGet:
+                path: /
+                port: 9001
+          readinessProbe:
+             httpGet:
+                path: /
+                port: 9001
+          ports:
+            - containerPort: 9001

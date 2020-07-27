@@ -31,5 +31,5 @@ func (h *timeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	t := &timeHandler{}
-	log.Fatal(http.ListenAndServe(":9001", t))
+	log.Fatal(http.ListenAndServe(":8080", t))
 }

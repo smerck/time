@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: time-server
+spec:
+  selector:
+    app: time-server-v1
+  ports:
+    - port: 9001
+      targetPort: 9001
+  type: LoadBalancer
