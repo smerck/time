@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"log"
 	"net/http"
 	"strings"
@@ -10,13 +9,12 @@ import (
 )
 
 func main() {
-	var rate float64
+	var rate int64
 	var url string
-	var testDuration time.Duration
-	var count, failed int
-	parseFlags(&rate, &url, &testDuration)
+	var duration, count, failed int
+	parseFlags(&rate, &url, &duration)
 
-	tickRate := time.Duration(1/rate*1000) * time.Millisecond
+	tickRate := time.Duration(1/float64(rate)*1000) * time.Millisecond
 	ticker := time.NewTicker(tickRate)
 	done := make(chan bool)
 	c := http.Client{Timeout: time.Second * 2}
@@ -40,30 +38,36 @@ func main() {
 					failed++
 				}
 				count++
-				log.Printf("Request %s with Status Code %d after %v\n", status, resp.StatusCode, d)
-
+				log.Printf("Request %d %s with Status Code %d after %v\n", count, status, resp.StatusCode, d)
 			}
 		}
 	}()
 
-	time.Sleep(testDuration)
+	time.Sleep(time.Duration(duration) * time.Second)
 	ticker.Stop()
 	done <- true
-	fmt.Println("Test complete")
+	log.Println("Test complete")
 	sr := float64((count-failed)/count) * 100
 	log.Printf("Overall Success Rate: %.2f%%", sr)
+	log.Printf("Total Number of Requests: %d", count)
 }
 
-func parseFlags(rate *float64, url *string, duration *time.Duration) {
-	flag.Float64Var(rate, "rps", 5, "number of requests that can be sent per second.")
-	flag.StringVar(url, "host", "http://localhost:9001", "hostname, including http[s]://")
-	flag.DurationVar(duration, "duration", time.Duration(120)*time.Second, "duration of test")
+
+func parseFlags(rate *int64, url *string, duration *int) {
+	flag.Int64Var(rate, "rps", 5, "Number of requests that can be sent per second.")
+	flag.StringVar(url, "host", "http://localhost:9001", "URL (Note:including protocol - http[s]://)")
+	flag.IntVar(duration, "duration", 120, "Duration of test")
 	flag.Parse()
+  
 	if !strings.HasPrefix(*url, "http://") {
-		log.Fatal("Specify protocol in hostname")
+		log.Fatal("Specify protocol in hostname.")
 	}
 	if *rate > 200 || *rate < 1 {
-		log.Fatal("Rate must be between 1 and 100")
+		log.Fatal("Rate must be between 1 and 100.")
+
 	}
-	log.Printf("Starting test: Sending %.0f rps to %s for %v", *rate, *url, duration)
+	if *duration < 0 {
+		log.Fatal("Test duration must be greater than 0.")
+	}
+	log.Printf("Starting test: Sending %d requests per second to %s for %ds.", *rate, *url, *duration)
 }

@@ -11,8 +11,7 @@ import (
 type timeHandler struct{}
 
 type timeResponse struct {
-	Time    string `json:"time"`
-	Version int    `json:"version"`
+	Time string `json:"time"`
 }
 
 func (h *timeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -30,6 +29,6 @@ func (h *timeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	t := &timeHandler{}
-	log.Fatal(http.ListenAndServe(":8080", t))
+	h := &timeHandler{}
+	log.Fatal(http.ListenAndServe(":8080", h))
 }
