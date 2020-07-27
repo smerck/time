@@ -18,6 +18,7 @@ func main() {
 	ticker := time.NewTicker(tickRate)
 	done := make(chan bool)
 	c := http.Client{Timeout: time.Second * 2}
+	respChan := make(chan *http.Response)
 
 	go func() {
 		for {
@@ -26,11 +27,15 @@ func main() {
 				return
 			case <-ticker.C:
 				start := time.Now()
-				resp, err := c.Get(url)
-				if err != nil {
-					log.Fatalf("Server Error: %s", err)
-				}
-				defer resp.Body.Close()
+				go func() {
+					resp, err := c.Get(url)
+					if err != nil {
+						log.Fatalf("Server Error: %s", err)
+					}
+					defer resp.Body.Close()
+					respChan <- resp
+				}()
+				resp := <-respChan
 				d := time.Since(start)
 				status := "succeeded"
 				if resp.StatusCode != 200 {
@@ -48,7 +53,7 @@ func main() {
 	done <- true
 	log.Println("Test complete")
 	sr := float64((count-failed)/count) * 100
-	log.Printf("Overall Success Rate: %.2f%%", sr)
+	log.Printf("Overall Success Rate: %.2f%% (%d/%d)", sr, (count - failed), count)
 	log.Printf("Total Number of Requests: %d", count)
 }
 
