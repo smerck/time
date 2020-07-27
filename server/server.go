@@ -18,8 +18,7 @@ type timeResponse struct {
 func (h *timeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	t := time.Now().Format(time.RFC3339)
 	resp := &timeResponse{
-		Time:    t,
-		Version: 1,
+		Time: t,
 	}
 
 	err := json.NewEncoder(w).Encode(resp)
