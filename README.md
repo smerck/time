@@ -1,7 +1,7 @@
 This repo consists of two major pieces: 
 
 # Server
-A server gives a json response containing the time that the response was received.
+A server gives a json response containing the time that the request was received.
 
 # build
 go build -o ./bin/server ./server/server.go
