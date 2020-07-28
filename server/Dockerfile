@@ -1,11 +1,11 @@
-FROM golang:alpine
-
-RUN echo $GOPATH
+FROM golang:alpine 
 
 WORKDIR $GOPATH/src/smerck/time/server
 COPY . .
 
-RUN go get -d -v
+RUN apk add --no-cache git mercurial \
+    && go get -v github.com/gorilla/mux \
+    && apk del git mercurial
 RUN go build -o ./bin/server
 RUN go install 
 
