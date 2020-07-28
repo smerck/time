@@ -1,7 +1,6 @@
 
-# build docker image
-`docker build ./server -t smerck/time:v1`
-`docker build ./server -t smerck/time:v2`
+# Build docker image
+`docker build ./server -t smerck/time`
 
 # list images
 ```
@@ -76,7 +75,7 @@ deployment.apps/time-server-v2 created
 :~$ kubectl get all
 NAME                                  READY   STATUS    RESTARTS   AGE
 pod/time-server-v1-549dfd744b-mgpbc   1/1     Running   0          14m
-pod/time-server-v2-6dddcf4df8-jbwfx   0/1     Running   0          9s
+pod/time-server-v2-6dddcf4df8-jbwfx   1/1     Running   0          9s
 
 NAME                  TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)          AGE
 service/kubernetes    ClusterIP      10.51.240.1     <none>          443/TCP          26h
