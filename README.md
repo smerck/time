@@ -19,6 +19,9 @@ Returns json output with the server time for the received request.
 ## run 
 `./bin/server &`
 
+## build docker container
+`make build-docker`
+
 # Client
 A client to test the server. The client takes a few arguments:
 
