@@ -32,7 +32,7 @@ func (h *timeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *healthHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(200)
+	w.WriteHeader(http.StatusOK)
 }
 
 func main() {
