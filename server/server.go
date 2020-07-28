@@ -6,9 +6,12 @@ import (
 	"time"
 
 	"log"
+
+	"github.com/gorilla/mux"
 )
 
 type timeHandler struct{}
+type healthHandler struct{}
 
 type timeResponse struct {
 	Time string `json:"time"`
@@ -28,7 +31,13 @@ func (h *timeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func (h *healthHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(200)
+}
+
 func main() {
-	h := &timeHandler{}
-	log.Fatal(http.ListenAndServe(":8080", h))
+	r := mux.NewRouter()
+	r.PathPrefix("/healthcheck").Handler(&healthHandler{})
+	r.PathPrefix("/").Handler(&timeHandler{})
+	log.Fatal(http.ListenAndServe(":9001", r))
 }
