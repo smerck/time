@@ -18,7 +18,7 @@ spec:
                 port: 9001
           readinessProbe:
              httpGet:
-                path: /
+                path: /healthcheck
                 port: 9001
           ports:
             - containerPort: 9001
