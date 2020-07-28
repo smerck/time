@@ -56,4 +56,4 @@ go run client.go -host http://localhost:8080 -rps 100 -duration 120
 * Runbook for executing blue/green deploys with this service [runbook.md](https://github.com/smerck/time/blob/master/runbook.md)
 * Results available in [results.md](https://github.com/smerck/time/blob/master/results.md)
 
-# "Hell, it's about *time*" -Tychus Findlay
+*"Hell, it's about time"* -Tychus Findlay
