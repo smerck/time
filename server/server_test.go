@@ -10,7 +10,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-// adding intial tests
 func TestHandler(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/", nil)
 
