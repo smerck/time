@@ -1,15 +1,15 @@
-
+# Results from Blue/Green deploy
 # Build docker image
 `docker build ./server -t smerck/time`
 
-# list images
+# List images
 ```
 docker image list
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 time-server         latest              80f19eb0dfd6        3 minutes ago       388MB
 ```
 
-# publish two images to gcr
+# Publish two images to GCR
 ```
 docker tag time-server gcr.io/snowball-284203/time-server:v1
 docker tag time-server gcr.io/snowball-284203/time-server:v2
@@ -17,14 +17,14 @@ docker push gcr.io/snowball-284203/time-server:v1
 docker push gcr.io/snowball-284203/time-server:v2
 ```
 
-# get currently available pods, deployments and services (empty cluster)
+# Get currently configured resources
 ```
 kubectl get all
 NAME                 TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE
 service/kubernetes   ClusterIP   10.51.240.1   <none>        443/TCP   26h
 ```
 
-# deploy server:v1
+# Deploy server:v1
 ```
 :~$ kubectl apply -f server/deployment-blue.yaml
 deployment.apps/time-server-v1 created
