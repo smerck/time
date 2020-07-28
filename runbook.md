@@ -11,7 +11,7 @@ docker push gcr.io/snowball-284203/time-server:v1
 docker push gcr.io/snowball-284203/time-server:v2
 ```
 
-## Apply v1 deployment and add service
+## Apply v1 deployment and service
 ```
 kubectl apply -f deployment-blue.yaml
 kubectl apply -f service-blue.yaml
