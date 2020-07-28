@@ -32,7 +32,7 @@ func main() {
 				resp := <-respChan
 				d := time.Since(start)
 				status := "succeeded"
-				if resp.StatusCode != 200 {
+				if resp.StatusCode != http.StatusOK {
 					status = "failed"
 					failed++
 				}
