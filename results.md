@@ -1,15 +1,15 @@
 # Results from Blue/Green deploy
-# Build docker image
+## Build docker image
 `docker build ./server -t time-server`
 
-# List images
+## List images
 ```
 docker image list
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 time-server         latest              80f19eb0dfd6        3 minutes ago       388MB
 ```
 
-# Publish two images to GCR
+## Publish two images to GCR
 ```
 docker tag time-server gcr.io/snowball-284203/time-server:v1
 docker tag time-server gcr.io/snowball-284203/time-server:v2
@@ -17,14 +17,14 @@ docker push gcr.io/snowball-284203/time-server:v1
 docker push gcr.io/snowball-284203/time-server:v2
 ```
 
-# Get currently configured resources
+## Get currently configured resources
 ```
 kubectl get all
 NAME                 TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE
 service/kubernetes   ClusterIP   10.51.240.1   <none>        443/TCP   26h
 ```
 
-# Deploy server:v1
+## Deploy server:v1
 ```
 :~$ kubectl apply -f server/deployment-blue.yaml
 deployment.apps/time-server-v1 created
@@ -65,10 +65,10 @@ Events:
   Normal  EnsuredLoadBalancer   13m   service-controller  Ensured load balancer
 ```
 
-# start client locally, targeting time-server pod
-./bin/client -rps 10 -host http://34.82.111.175:9001/ -duration 120
+## Start client locally, targeting time-server pod
+`./bin/client -rps 10 -host http://34.82.111.175:9001/ -duration 120`
 
-# deploy server:v2 
+## Deploy server:v2 
 ```
 :~$ kubectl apply -f deployment-green.yaml
 deployment.apps/time-server-v2 created
@@ -90,7 +90,7 @@ replicaset.apps/time-server-v1-549dfd744b   1         1         1       14m
 replicaset.apps/time-server-v2-6dddcf4df8   1         1         1       10s
 ```
 
-# After new pod has initialized, update service.
+## After new pod has initialized, update service.
 ```
 :~$ kubectl apply -f service-green.yaml
 service/time-server configured
@@ -132,7 +132,7 @@ Events:
   Normal  EnsuredLoadBalancer   2s (x2 over 14m)  service-controller  Ensured load balancer
 ```
 
-# finally, spin down pods from old deployment
+## Spin down v1 deployment
 ```
 :~$ kubectl delete deployment time-server-v1
 :~$ kubectl get all
@@ -151,7 +151,7 @@ NAME                                        DESIRED   CURRENT   READY   AGE
 replicaset.apps/time-server-v2-6dddcf4df8   1         1         1       81s
 ```
 
-# client results
+# Client results
 ```
 :~$ ./client -rps 10 -host http://34.82.111.175:9001/ -duration 200
 2020/07/28 04:08:31 Starting test: Sending 10 requests per second to http://34.82.111.175:9001/ for 200s.
