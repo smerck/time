@@ -1,25 +1,24 @@
 # Goals
-This project aims to create:
-
-* A Server that returns the current timestamp/date in json format.
-* A Client that can query this API at a specified rate, and record success, failure, and/or TTLB.
+* Create a server that returns the current timestamp/date in json format.
+* Create a client that can query this API at a specified rate, and record success, failure, and/or TTLB.
 * Execute a blue-green deploy without a failed request.
 
 This repo consists of two major pieces: 
 
-# Server
+# Server 
 Returns json output with the server time for the received request.
 
-## build
+## Quickstart
+### build
 `make server`
 
-## test
+### test
 `make test`
 
-## run 
+### run 
 `./bin/server &`
 
-## build docker container
+### build docker container
 `make docker-build`
 
 # Client
@@ -30,13 +29,14 @@ A client to test the server. The client takes a few arguments:
 * duration: (Default: 120s)
 
 The client will send requests to the specified server and indicate if the request succeeded/failed and how long it took to complete.
-## build
+## Quickstart
+### build
 `make client`
 
-## run
+### run
 `./bin/client  -host http://localhost:8080 -rps 10 -duration 120`
 
-## example output
+### example output
 ```
 go run client.go -host http://localhost:8080 -rps 100 -duration 120
 2020/07/27 09:13:10 Starting test: Sending 100 requests per second to http://localhost:8080 for 120s.
@@ -52,7 +52,7 @@ go run client.go -host http://localhost:8080 -rps 100 -duration 120
 2020/07/27 08:53:53 Total Number of Requests: 12000
 ```
 
-# Blue/Green Deploys
+# Executing Blue/Green Deploys
 * Runbook for executing blue/green deploys with this service [runbook.md](https://github.com/smerck/time/blob/master/runbook.md)
 * Results available in [results.md](https://github.com/smerck/time/blob/master/results.md)
 
