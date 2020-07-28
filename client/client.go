@@ -29,7 +29,7 @@ func main() {
 				go func() {
 					resp, err := c.Get(url)
 					if err != nil {
-						log.Fatalf("Server Error: %s", err)
+						log.Fatalf("client error: %s", err)
 					}
 					defer resp.Body.Close()
 					respChan <- resp
