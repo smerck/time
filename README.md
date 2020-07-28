@@ -1,3 +1,4 @@
+# Goals
 This project aims to create:
 
 * A Server that returns the current timestamp/date in json format.
@@ -51,3 +52,5 @@ go run client.go -host http://localhost:8080 -rps 100 -duration 120
 # Blue/Green Deploys
 * Runbook for executing blue/green deploys with this service [runbook.md](https://github.com/smerck/time/blob/master/runbook.md)
 * Results available in [results.md](https://github.com/smerck/time/blob/master/results.md)
+
+# "Hell, it's about *time*" -Tychus Findlay
