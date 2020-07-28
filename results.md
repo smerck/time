@@ -136,7 +136,6 @@ Events:
 ```
 :~$ kubectl delete deployment time-server-v1
 :~$ kubectl get all
- kubectl get all
 NAME                                  READY   STATUS        RESTARTS   AGE
 pod/time-server-v2-6dddcf4df8-jbwfx   1/1     Running       0          81s
 
