@@ -1,7 +1,7 @@
 This repo consists of two major pieces: 
 
 # Server
-A server gives a json response containing the time that the response was received.
+A server gives a json response containing the time that the request was received.
 
 # build
 go build -o ./bin/server ./server/server.go
@@ -23,32 +23,20 @@ Example output:
 go build -o ./bin/client ./client/client.go
 
 # run 
-./bin/client -rps 1 -host "http://localhost:8080" -duration 10s
+./bin/client -rps 1 -host "http://localhost:8080" -duration 10
 
 # output
 ```
-:~/go/src/github.com/smerck/time/bin$ ./client -rps 2 -host "http://localhost:9001" -duration 10s
-2020/07/27 05:28:53 Starting test: Sending 2 rps to http://localhost:9001 for 10s
-2020/07/27 05:28:54 Request succeeded with Status Code 200 after 1.835278ms
-2020/07/27 05:28:54 Request succeeded with Status Code 200 after 1.057445ms
-2020/07/27 05:28:55 Request succeeded with Status Code 200 after 958.26µs
-2020/07/27 05:28:55 Request succeeded with Status Code 200 after 1.00448ms
-2020/07/27 05:28:56 Request succeeded with Status Code 200 after 1.230874ms
-2020/07/27 05:28:56 Request succeeded with Status Code 200 after 1.337869ms
-2020/07/27 05:28:57 Request succeeded with Status Code 200 after 1.400059ms
-2020/07/27 05:28:57 Request succeeded with Status Code 200 after 1.281953ms
-2020/07/27 05:28:58 Request succeeded with Status Code 200 after 1.261642ms
-2020/07/27 05:28:58 Request succeeded with Status Code 200 after 1.428634ms
-2020/07/27 05:28:59 Request succeeded with Status Code 200 after 1.289821ms
-2020/07/27 05:28:59 Request succeeded with Status Code 200 after 1.279114ms
-2020/07/27 05:29:00 Request succeeded with Status Code 200 after 891.544µs
-2020/07/27 05:29:00 Request succeeded with Status Code 200 after 843.502µs
-2020/07/27 05:29:01 Request succeeded with Status Code 200 after 1.343763ms
-2020/07/27 05:29:01 Request succeeded with Status Code 200 after 1.275267ms
-2020/07/27 05:29:02 Request succeeded with Status Code 200 after 1.279391ms
-2020/07/27 05:29:02 Request succeeded with Status Code 200 after 1.295661ms
-2020/07/27 05:29:03 Request succeeded with Status Code 200 after 1.314247ms
-2020/07/27 05:29:03 Request succeeded with Status Code 200 after 1.303084ms
-Test complete
-2020/07/27 05:29:03 Overall Success Rate: 100.00%
+go run client.go -host http://localhost:8080 -rps 100 -duration 120
+2020/07/27 09:13:10 Starting test: Sending 100 requests per second to http://localhost:8080 for 120s.
+2020/07/27 09:13:10 Request 1 succeeded with Status Code 200 after 896.773µs
+2020/07/27 09:13:10 Request 2 succeeded with Status Code 200 after 518.112µs
+2020/07/27 09:13:10 Request 3 succeeded with Status Code 200 after 491.168µs
+[...]
+2020/07/27 08:53:53 Request 11998 succeeded with Status Code 200 after 369.933µs
+2020/07/27 08:53:53 Request 11999 succeeded with Status Code 200 after 353.273µs
+2020/07/27 08:53:53 Request 12000 succeeded with Status Code 200 after 348.487µs
+2020/07/27 08:53:53 Test complete
+2020/07/27 08:53:53 Overall Success Rate: 100.00%
+2020/07/27 08:53:53 Total Number of Requests: 12000
 ```
