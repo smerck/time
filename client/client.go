@@ -28,16 +28,7 @@ func main() {
 			case <-done:
 				return
 			case start := <-ticker.C:
-				go func() {
-					wg.Add(1)
-					resp, err := c.Get(url)
-					defer wg.Done()
-					if err != nil {
-						log.Printf("client error: %s", err)
-					}
-					defer resp.Body.Close()
-					respChan <- resp
-				}()
+				go sendRequest(&c, respChan, &wg, url)
 				resp := <-respChan
 				d := time.Since(start)
 				status := "succeeded"
@@ -62,8 +53,8 @@ func main() {
 }
 
 func parseFlags(rate *int64, url *string, duration *int) {
-	flag.Int64Var(rate, "rps", 5, "Number of requests that can be sent per second.")
-	flag.StringVar(url, "host", "http://localhost:9001", "URL (Note:including protocol - http[s]://)")
+	flag.Int64Var(rate, "rps", 5, "Number of requests that client will send per second")
+	flag.StringVar(url, "host", "http://localhost:9001", "Server URL (Note: including protocol)")
 	flag.IntVar(duration, "duration", 120, "Duration of test")
 	flag.Parse()
 
@@ -77,4 +68,15 @@ func parseFlags(rate *int64, url *string, duration *int) {
 		log.Fatal("Test duration must be greater than 0.")
 	}
 	log.Printf("Starting test: Sending %d requests per second to %s for %ds.", *rate, *url, *duration)
+}
+
+func sendRequest(c *http.Client, ch chan *http.Response, wg *sync.WaitGroup, url string) {
+	wg.Add(1)
+	resp, err := c.Get(url)
+	defer wg.Done()
+	if err != nil {
+		log.Printf("client error: %s", err)
+	}
+	defer resp.Body.Close()
+	ch <- resp
 }
