@@ -1,6 +1,6 @@
 # Results from Blue/Green deploy
 # Build docker image
-`docker build ./server -t smerck/time`
+`docker build ./server -t time-server`
 
 # List images
 ```
