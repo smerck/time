@@ -6,19 +6,19 @@ This project aims to create:
 
 This repo consists of two major pieces: 
 
-## Server
+# Server
 Returns json output with the server time for the received request.
 
-# build
+## build
 `make server`
 
-# test
+## test
 `make test`
 
-# run 
+## run 
 `./bin/server &`
 
-## Client
+# Client
 A client to test the server. The client takes a few arguments:
 
 * rps: (Default: 10) Number of requests to send to the server per second.
@@ -28,13 +28,13 @@ A client to test the server. The client takes a few arguments:
 The client will send requests to the specified server and indicate if the request succeeded/failed and how long it took to complete.
 Example output:
 
-# build
+## build
 `make client`
 
-# run
+## run
 `./bin/client  -host http://localhost:8080 -rps 10 -duration 120`
 
-# Sample output
+## sample output
 ```
 go run client.go -host http://localhost:8080 -rps 100 -duration 120
 2020/07/27 09:13:10 Starting test: Sending 100 requests per second to http://localhost:8080 for 120s.
