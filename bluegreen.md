@@ -19,10 +19,13 @@ kubectl apply -f service-blue.yaml
 ```
 
 # start test client
-`./bin/client -rps 5 -host "http://105.198.89.14:9001" -duration 120`
-
-# apply bluegreen deployment
-`kubectl apply -f deployment-bluegreen.yaml`
+`./bin/client -rps 5 -host "http://<ip>:9001" -duration 120`
 
 # apply green deployment
-`kubectl apply -f service-green.yaml`
+`kubectl apply -f server/deployment-green.yaml`
+
+# apply green deployment
+`kubectl apply -f server/service-green.yaml`
+
+# spindown blue deployment
+`kubectl apply -f server/service-green.yaml`
