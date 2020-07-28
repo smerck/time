@@ -26,4 +26,3 @@ kubectl apply -f service-blue.yaml
 
 # apply green deployment
 `kubectl apply -f service-green.yaml`
-

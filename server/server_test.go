@@ -2,11 +2,12 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 // adding intial tests
@@ -24,5 +25,4 @@ func TestHandler(t *testing.T) {
 	resp := timeResponse{}
 	err = json.Unmarshal(b, &resp)
 	assert.NotNil(t, resp.Time)
-	assert.NotNil(t, resp.Version)
 }
