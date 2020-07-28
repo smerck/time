@@ -26,5 +26,5 @@ kubectl apply -f service-blue.yaml
 ## Apply service change to point to v2
 `kubectl apply -f server/service-green.yaml`
 
-## Spindown blue deployment
+## Spindown v1 deployment
 `kubectl delete -f deployment time-server-v1`
