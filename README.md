@@ -49,5 +49,5 @@ go run client.go -host http://localhost:8080 -rps 100 -duration 120
 ```
 
 # Blue/Green Deploys
-* Executed using the process laid out in [bluegreen.md](https://github.com/smerck/time/blob/master/bluegreen.md)
+* Runbook for executing blue/green deploys with this service [runbook.md](https://github.com/smerck/time/blob/master/runbook.md)
 * Results available in [results.md](https://github.com/smerck/time/blob/master/results.md)
