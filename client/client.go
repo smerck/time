@@ -61,11 +61,13 @@ func parseFlags(rate *int64, url *string, duration *int) {
 	flag.StringVar(url, "host", "http://localhost:9001", "URL (Note:including protocol - http[s]://)")
 	flag.IntVar(duration, "duration", 120, "Duration of test")
 	flag.Parse()
+  
 	if !strings.HasPrefix(*url, "http://") {
 		log.Fatal("Specify protocol in hostname.")
+
 	}
-	if *rate > 100000 || *rate < 1 {
-		log.Fatal("Rate must be between 1 and 100.")
+	if *rate > 1000 || *rate < 1 {
+		log.Fatal("Rate must be between 1 and 1000.")
 	}
 	if *duration < 0 {
 		log.Fatal("Test duration must be greater than 0.")
