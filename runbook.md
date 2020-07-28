@@ -1,10 +1,9 @@
-# Executing Blue/Green Deploy
+# Runbook: Executing Blue/Green Deploy
 
-# build docker image
+## Build docker image
 `sudo docker build . -t smerck/time`
 
-# publish as two images in gcr, we're using the same docker image and time-server binary,
-# but can still demonstrate a blue/green deploy with two containers.
+## Publish as two images in GCR
 ```
 sudo docker tag time-server gcr.io/snowball-284203/time-server:v1
 sudo docker tag time-server gcr.io/snowball-284203/time-server:v2
@@ -12,20 +11,20 @@ sudo docker push gcr.io/snowball-284203/time-server:v1
 sudo docker push gcr.io/snowball-284203/time-server:v2
 ```
 
-# apply blue deployment
+## Apply v1 deployment and add service
 ```
 kubectl apply -f deployment-blue.yaml
 kubectl apply -f service-blue.yaml
 ```
 
-# start test client
+## Start test client
 `./bin/client -rps 5 -host "http://<ip>:9001" -duration 120`
 
-# apply green deployment
+## Apply v2 deployment
 `kubectl apply -f server/deployment-green.yaml`
 
-# apply green deployment
+## Apply service change to point to v2
 `kubectl apply -f server/service-green.yaml`
 
-# spindown blue deployment
-`kubectl apply -f server/service-green.yaml`
+## Spindown blue deployment
+`kubectl delete -f deployment time-server-v1`
