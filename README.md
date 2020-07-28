@@ -20,7 +20,7 @@ Returns json output with the server time for the received request.
 `./bin/server &`
 
 ## build docker container
-`make build-docker`
+`make docker-build`
 
 # Client
 A client to test the server. The client takes a few arguments:
