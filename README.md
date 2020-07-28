@@ -26,15 +26,13 @@ A client to test the server. The client takes a few arguments:
 * duration: (Default: 120s)
 
 The client will send requests to the specified server and indicate if the request succeeded/failed and how long it took to complete.
-Example output:
-
 ## build
 `make client`
 
 ## run
 `./bin/client  -host http://localhost:8080 -rps 10 -duration 120`
 
-## sample output
+## example output
 ```
 go run client.go -host http://localhost:8080 -rps 100 -duration 120
 2020/07/27 09:13:10 Starting test: Sending 100 requests per second to http://localhost:8080 for 120s.
@@ -49,3 +47,7 @@ go run client.go -host http://localhost:8080 -rps 100 -duration 120
 2020/07/27 08:53:53 Overall Success Rate: 100.00%
 2020/07/27 08:53:53 Total Number of Requests: 12000
 ```
+
+# Blue/Green Deploys
+* Executed using the process laid out in [bluegreen.md](https://github.com/smerck/time/blob/master/bluegreen.md)
+* Results available in [results.md](https://github.com/smerck/time/blob/master/results.md)
