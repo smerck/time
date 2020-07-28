@@ -1,14 +1,14 @@
 # Runbook: Executing Blue/Green Deploy
 
 ## Build docker image
-`sudo docker build . -t smerck/time`
+`docker build ./server/ -t time-server`
 
 ## Publish as two images in GCR
 ```
-sudo docker tag time-server gcr.io/snowball-284203/time-server:v1
-sudo docker tag time-server gcr.io/snowball-284203/time-server:v2
-sudo docker push gcr.io/snowball-284203/time-server:v1
-sudo docker push gcr.io/snowball-284203/time-server:v2
+docker tag time-server gcr.io/snowball-284203/time-server:v1
+docker tag time-server gcr.io/snowball-284203/time-server:v2
+docker push gcr.io/snowball-284203/time-server:v1
+docker push gcr.io/snowball-284203/time-server:v2
 ```
 
 ## Apply v1 deployment and add service
