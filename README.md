@@ -3,8 +3,6 @@
 * Create a client that can query this API at a specified rate, and record success, failure, and/or TTLB.
 * Execute a blue-green deploy without a failed request.
 
-This repo consists of two major pieces: 
-
 # Server 
 Returns json output with the server time for the received request.
 
@@ -53,7 +51,7 @@ go run client.go -host http://localhost:8080 -rps 100 -duration 120
 ```
 
 # Executing Blue/Green Deploys
+For this, I set up a [GKE](https://cloud.google.com/kubernetes-engine) cluster, pushed my server container to [GCR](https://cloud.google.com/container-registry), and executed my bluegreen deployment with kubectl. I've included a runbook with my intended steps and results from running the blue/green deploy.
+
 * Runbook for executing blue/green deploys with this service [runbook.md](https://github.com/smerck/time/blob/master/runbook.md)
 * Results available in [results.md](https://github.com/smerck/time/blob/master/results.md)
-
-*"Hell, it's about time"* -Tychus Findlay
