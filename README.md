@@ -1,15 +1,24 @@
+This project aims to create:
+
+* A Server that returns the current timestamp/date in json format.
+* A Client that can query this API at a specified rate, and record success, failure, and/or TTLB.
+* Execute a blue-green deploy without a failed request.
+
 This repo consists of two major pieces: 
 
 # Server
-A server gives a json response containing the time that the request was received.
+Returns json output with the server time for the received request.
 
-# build
-go build -o ./bin/server ./server/server.go
+## build
+`make server`
 
-# test
-go test ./...
+## test
+`make test`
 
-## Client
+## run 
+`./bin/server &`
+
+# Client
 A client to test the server. The client takes a few arguments:
 
 * rps: (Default: 10) Number of requests to send to the server per second.
@@ -19,13 +28,13 @@ A client to test the server. The client takes a few arguments:
 The client will send requests to the specified server and indicate if the request succeeded/failed and how long it took to complete.
 Example output:
 
-# build
-go build -o ./bin/client ./client/client.go
+## build
+`make client`
 
-# run 
-./bin/client -rps 1 -host "http://localhost:8080" -duration 10
+## run
+`./bin/client  -host http://localhost:8080 -rps 10 -duration 120`
 
-# output
+## sample output
 ```
 go run client.go -host http://localhost:8080 -rps 100 -duration 120
 2020/07/27 09:13:10 Starting test: Sending 100 requests per second to http://localhost:8080 for 120s.
