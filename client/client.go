@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -19,6 +20,7 @@ func main() {
 	done := make(chan bool)
 	c := http.Client{Timeout: time.Second * 2}
 	respChan := make(chan *http.Response)
+	var wg sync.WaitGroup
 
 	go func() {
 		for {
@@ -27,9 +29,11 @@ func main() {
 				return
 			case start := <-ticker.C:
 				go func() {
+					wg.Add(1)
 					resp, err := c.Get(url)
+					defer wg.Done()
 					if err != nil {
-						log.Fatalf("client error: %s", err)
+						log.Printf("client error: %s", err)
 					}
 					defer resp.Body.Close()
 					respChan <- resp
@@ -49,6 +53,7 @@ func main() {
 
 	time.Sleep(time.Duration(duration) * time.Second)
 	ticker.Stop()
+	wg.Wait()
 	done <- true
 	log.Println("Test complete")
 	sr := float64((count-failed)/count) * 100
